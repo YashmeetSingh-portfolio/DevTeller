@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevTeller Code Explanation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #6e48aa;
+      --secondary-color: #9d50bb;
+      --accent-color: #4776e6;
+      --dark-bg: #1a1a2e;
+      --darker-bg: #16213e;
+      --text-primary: #e6e6e6;
+      --text-secondary: #b8b8b8;
+      --success-color: #4caf50;
+      --code-bg: #0f0f1a;
+      --glass-effect: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .ai-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .ai-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-effect);
+    }
+
+    .ai-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-logo h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .ai-pulse {
+      font-size: 2rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .ai-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .ai-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-explanation-container {
+      background: var(--glass-effect);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-explanation-header {
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(to right, rgba(110, 72, 170, 0.3), rgba(71, 118, 230, 0.3));
+      border-bottom: 1px solid var(--glass-effect);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-explanation-header h2 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ai-icon {
+      font-size: 1.1em;
+    }
+
+    .ai-status {
+      font-size: 0.8rem;
+      background-color: var(--success-color);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      color: white;
+    }
+
+    .ai-explanation-content {
+      padding: 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+
+    .ai-code-explanation {
+      white-space: pre-wrap;
+    }
+
+    .ai-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 1rem;
+    }
+
+    .ai-loading-animation {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ai-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      animation: bounce 1.4s infinite ease-in-out;
+    }
+
+    .ai-dot:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .ai-dot:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    .ai-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding-top: 1rem;
+      border-top: 1px solid var(--glass-effect);
+    }
+
+    .ai-model-info {
+      background: rgba(157, 80, 187, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .ai-container {
+        padding: 1rem;
+      }
+      
+      .ai-logo h1 {
+        font-size: 1.8rem;
+      }
+      
+      .ai-explanation-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .ai-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ai-container">
+    <header class="ai-header">
+      <div class="ai-logo">
+        <span class="ai-pulse">⚡</span>
+        <h1>DevTeller</h1>
+      </div>
+      <div class="ai-subtitle">AI-Powered Code Explanation</div>
+    </header>
+
+    <main class="ai-content">
+      <div class="ai-explanation-container">
+        <div class="ai-explanation-header">
+          <h2><span class="ai-icon">🔍</span> Code Analysis</h2>
+          <div class="ai-status">Processing complete</div>
+        </div>
+        <div id="explanation" class="ai-explanation-content">
+          <div class="ai-loading">
+            <div class="ai-loading-animation">
+              <div class="ai-dot"></div>
+              <div class="ai-dot"></div>
+              <div class="ai-dot"></div>
+            </div>
+            <p>Loading code analysis...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="ai-footer">
+      <div class="ai-model-info">Neural Model v4.2 | Quantum Syntax Enabled</div>
+      <div class="ai-timestamp" id="timestamp"></div>
+    </footer>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+
+    // Show current timestamp
+    document.getElementById('timestamp').textContent = new Date().toLocaleString();
+
+    window.addEventListener('message', event => {
+      const message = event.data;
+      const explanationElement = document.getElementById('explanation');
+
+      if (message.text) {
+        explanationElement.innerHTML = `
+          <div class="ai-code-explanation">
+            ${message.text.replace(/\n/g, '<br>')}
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
